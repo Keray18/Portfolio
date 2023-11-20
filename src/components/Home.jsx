@@ -8,12 +8,14 @@ import Projects from './Projects'
 
 
 const Home = () => {
+  
   const boxStyle = {
     ":hover": {
       cursor: "pointer",
       // border: "5px inset"
     }
   }
+  
 
 
   const showStyle = {
@@ -26,7 +28,7 @@ const Home = () => {
       <BgVid />
 
       {/* Navbar */}
-      <Tabs variant="solid-rounded" size="lg">
+      <Tabs variant="solid-rounded" size="lg" isLazy>
       <Flex direction={{ base: "column", md: "row" }} as="nav" alignItems="center" wrap="wrap" fontWeight="extrabold" textColor="ghostwhite">
         <Box width={{ base: "40vw", sm: "10vw" }}>
           <Image src={logo} alt='logo' />

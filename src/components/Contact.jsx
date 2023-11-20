@@ -10,7 +10,7 @@ const Contact = () => {
       <Box position="relative">
         <Image h="120vh" w="100%" filter="brightness(0.4)" position="absolute" zIndex="-1" src={image} alt='img' />
         <Flex justify="center">
-          <Image my="5rem" opacity="0.7"  width="90%" height="100%" position="absolute" zIndex="-1" src={photo} alt='img' />
+          <Image my="5rem" opacity="0.7"  width="90%" height="100vh" position="absolute" zIndex="-1" src={photo} alt='img' />
         
         </Flex>
         <Stack my="3.5rem" flexDirection="column" alignItems="center" textAlign="center">

@@ -6,7 +6,7 @@ const Projects = () => {
   
 
   return (
-    <SimpleGrid justifyContent="center" pt={{md: "3rem", base: "0"}} px="10rem" spacing="10" minChildWidth={{base: "250px", md: "300px", lg: "400px"}}>
+    <SimpleGrid justifyContent="center" pt={{md: "3rem", base: "0"}} px="10rem" spacing="10" minChildWidth={{base: "300px", md: "300px", lg: "400px"}}>
       <CardCarousel />
     </SimpleGrid>
   )

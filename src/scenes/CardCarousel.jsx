@@ -15,6 +15,7 @@ import { useBreakpointValue } from '@chakra-ui/react';
 
 const CardCarousel = ({ cards }) => {
     const [repo, setRepo] = useState([])
+    
    const isMobile = useBreakpointValue({ base: true, lg: false });
 
   useEffect(() => {
