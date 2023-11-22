@@ -19,24 +19,49 @@ const ContactForm = () => {
   };
 
   
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault()
-    
-    if (formData.mail && formData.message) {
+
+    try {
+      const response = await fetch('https://portfolio-backend-dnss.onrender.com/senEmail', {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json',
+        },
+        body: JSON.stringify(formData)
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
       toast({
         title: 'Success!',
         description: 'Your mail has been sent',
         duration: 5000,
         isClosable: true,
         status: 'success',
-        position: 'top'
-      })
+        position: 'top',
+      });
       setFormData({
         name: '',
         mail: '',
         message: '',
-      })
+      });
+    } else {
+      // Handle the case where the server indicates a failure
+      toast({
+        title: 'Error',
+        description: 'Failed to send mail. Please try again later.',
+        duration: 5000,
+        isClosable: true,
+        status: 'error',
+        position: 'top',
+      });
     }
+    } catch (error) {
+      console.error('Error:', error)
+    }
+     
   }
 
   

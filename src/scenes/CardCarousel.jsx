@@ -9,18 +9,20 @@ import img3 from '../img/gems.jpg'
 import img4 from '../img/mush.jpg'
 import img5 from '../img/dataE.png'
 import img6 from "../img/socialM.png"
-import { useBreakpointValue } from '@chakra-ui/react';
+import { Flex, Spinner, useBoolean, useBreakpointValue } from '@chakra-ui/react';
 
 
 
 const CardCarousel = ({ cards }) => {
     const [repo, setRepo] = useState([])
+    const [isLoading, setIsLoading] = useBoolean();
     
    const isMobile = useBreakpointValue({ base: true, lg: false });
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setIsLoading.on();
         const token = process.env.REACT_APP_TOKEN
         const username = process.env.REACT_APP_USERNAME
         const apiUrl = `https://api.github.com/users/${username}/repos`
@@ -38,10 +40,12 @@ const CardCarousel = ({ cards }) => {
         }
       } catch (err) {
         console.error("Error:", err)
+      } finally {
+        setIsLoading.off();
       }
     }
     fetchData()
-  }, [])
+  }, [setIsLoading])
 
   const repository = {
     "COVID-19_Predictions": img1, 
@@ -61,11 +65,20 @@ const CardCarousel = ({ cards }) => {
     const settings = {
         dots: true,
         infinite: true,
-        speed: 500,
+        speed: 1500,
         slidesToShow: isMobile ? 1 : 3,
         slidesToScroll: 1, 
+        autoplay: true,
+        autoplaySpeed: 4000,
     } 
     
+    if (isLoading) {
+    return (
+      <Flex align="center" justify="center" h="200px">
+        <Spinner size="xl" />
+      </Flex>
+    );
+  }
 
 
   return (

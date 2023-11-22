@@ -11,8 +11,8 @@ const CardComp = (props) => {
           </CardHeader>
 
           <Stack mx="1rem" mt='5' spacing='3'>
-            <Box w="250px" h={{base: "30vh", md: "25vh"}}>
-              <Heading size='md'>{props.head}</Heading>
+            <Box h={{base: "30vh", md: "25vh"}}>
+              <Heading w={{base: "250px", lg: "300px"}} size='md'>{props.head}</Heading>
               <Text py="0.5rem" h="fit-content">{props.body}</Text>
             </Box>
             <Box>
