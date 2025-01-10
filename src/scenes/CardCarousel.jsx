@@ -23,6 +23,8 @@ const CardCarousel = ({ cards }) => {
     const fetchData = async () => {
       try {
         setIsLoading.on();
+        console.log("Username:", process.env.REACT_APP_USERNAME);
+        console.log("Token:", process.env.REACT_APP_TOKEN);
         const token = process.env.REACT_APP_TOKEN
         const username = process.env.REACT_APP_USERNAME
         const apiUrl = `https://api.github.com/users/${username}/repos`
