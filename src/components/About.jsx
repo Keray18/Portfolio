@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import me from '../img/me.jpg';
+import me from '../img/me.JPG';
 
 const About = () => {
   const skills = [
