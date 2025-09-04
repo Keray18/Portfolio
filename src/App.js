@@ -1,73 +1,61 @@
-import React, { useEffect, useState } from 'react';
-import Home from './components/Home';
-import Contact from './components/Contact';
-import { Box, Flex, SkeletonCircle, SkeletonText, useBreakpointValue } from '@chakra-ui/react'; // Import Skeleton from Chakra UI
+import React, { useState, useEffect } from 'react';
+import { Canvas } from '@react-three/fiber';
+import { OrbitControls, Preload } from '@react-three/drei';
+import { motion, AnimatePresence } from 'framer-motion';
 import './App.css';
 
+// Components
+import LoadingScreen from './components/LoadingScreen';
+import Navigation from './components/Navigation';
+import Hero from './components/Hero';
+import About from './components/About';
+import Projects from './components/Projects';
+import Skills from './components/Skills';
+import Contact from './components/Contact';
+import Footer from './components/Footer';
+
 const App = () => {
-  const year = new Date().getFullYear();
   const [isLoading, setIsLoading] = useState(true);
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [currentSection, setCurrentSection] = useState('home');
 
   useEffect(() => {
-    const loadingTimeout = setTimeout(() => {
-      setIsLoading(false)
-      setIsLoaded(true)
-    }, 4000); // Show skeleton for 5 seconds
+    // Simulate loading time for assets
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
 
-    return () => {
-      clearTimeout(loadingTimeout)
-    }
-  }, [])
+    return () => clearTimeout(timer);
+  }, []);
 
-  const isBig = useBreakpointValue({ base: false, md: true });
+  const handleSectionChange = (section) => {
+    setCurrentSection(section);
+  };
+
+  if (isLoading) {
+    return <LoadingScreen />;
+  }
 
   return (
-    <div>
-      {isLoading ? (
-        <Box w="100%" h="100vh">
-        {/* Navbar */}
-          {isBig && (
-            <Flex justify="space-between" px="5rem" py="2rem">
-              <SkeletonText isLoaded={isLoaded} width="8vw" rounded="2xl" mt='4' noOfLines={1} spacing='4' skeletonHeight={{ base: "3", md: '8vh' }} />
-              <SkeletonText isLoaded={isLoaded} width="10vw"  mt='4' noOfLines={1} spacing='4' skeletonHeight={{ base: "3", md: '10' }} />
-            </Flex>
-          )}
-          {!isBig && (
-                <Box>
-                  <Flex justify="center" alignItems="center" mt="5rem">
-                    <SkeletonText noOfLines={1} isLoaded={isLoaded} width="20vw" skeletonHeight="13vh"/>
-                  </Flex>
+    <div className="app">
+      <Navigation onSectionChange={handleSectionChange} currentSection={currentSection} />
+      
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={currentSection}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+          transition={{ duration: 0.5 }}
+        >
+          {currentSection === 'home' && <Hero onSectionChange={handleSectionChange} />}
+          {currentSection === 'about' && <About />}
+          {currentSection === 'projects' && <Projects onSectionChange={handleSectionChange} />}
+          {currentSection === 'skills' && <Skills />}
+          {currentSection === 'contact' && <Contact />}
+        </motion.div>
+      </AnimatePresence>
 
-                  <Flex justify="center" alignItems="center" mt="1rem">
-                    <SkeletonText isLoaded={isLoaded} pr="0.2rem" width="10vw"  mt='4' noOfLines={1} skeletonHeight={{ base: "3", md: '10' }} />
-                    <SkeletonText isLoaded={isLoaded} pl="0.2rem" width="10vw"  mt='4' noOfLines={1} skeletonHeight={{ base: "3", md: '10' }} />
-                  </Flex>
-                </Box>
-              )}
-          {/* Content */}
-          <Box flexDirection="column" alignItems="center"  py="3rem" fontSize="3xl" width="fit-content" margin="auto">
-            <Flex flexDirection="column" justify="center" alignItems="center">
-              <SkeletonCircle isLoaded={isLoaded} mt={{md: "5rem"}} w={{base: "25vw", lg: "5vw"}} h={{ base: "15vh", lg: "10vh"}} size='10' />
-              <Flex py="3rem">
-                <SkeletonCircle isLoaded={isLoaded} mx="0.5rem" size='5'  />
-                <SkeletonCircle isLoaded={isLoaded} mx="0.5rem" size='5'  />
-                <SkeletonCircle isLoaded={isLoaded} mx="0.5rem" size='5'  />
-                <SkeletonCircle isLoaded={isLoaded} mx="0.5rem" size='5'  />
-              </Flex>
-              <SkeletonText isLoaded={isLoaded} width={{base: "50vw", md: "30vw"}} mt='4' noOfLines={2} spacing='4' skeletonHeight={{ base: "3", md: '8' }} />
-            </Flex>
-          </Box>
-        </Box>
-      ) : (
-        <>
-          <Home />
-          <Contact />
-          <Flex justify="center" alignItems="center">
-            <footer>@copyright {year}</footer>
-          </Flex>
-        </>
-      )}
+      <Footer />
     </div>
   );
 };

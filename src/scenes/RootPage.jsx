@@ -2,7 +2,7 @@ import { Avatar, Box, Flex, Heading, Icon, Link, Text, useBreakpointValue } from
 import React from 'react'
 import { BsDashLg } from 'react-icons/bs'
 import { FaLinkedinIn, FaSquareGithub, FaXTwitter, FaFileLines } from 'react-icons/fa6'
-import photo from '../img/me.JPG'
+import photo from '../img/me.jpg'
 
 const RootPage = () => {
 
