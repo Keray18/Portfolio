@@ -521,9 +521,16 @@ body {
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(100, 255, 218, 0.2);
   border-radius: 10px;
-  color: #ffffff;
+  color: #0e1726; /* darker text for better contrast */
   font-size: 1rem;
   transition: all 0.3s ease;
+  caret-color: #0e1726;
+}
+
+/* Placeholder styling for readability */
+.form-input::placeholder,
+.form-textarea::placeholder {
+  color: rgba(14, 23, 38, 0.6);
 }
 
 .form-input:focus,
